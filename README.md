@@ -14,7 +14,7 @@ DeepBrainIpp is a pipeline for skull stripping, brain structures segmentation an
         2. Setup singularity registry server from https://singularityhub.github.io/sregistry/docs/setup/#pancakes-installation <br/>
         3. Upload trained models from 'models' directory to singularity registry server <br/>
         4. Configure pipeline in the Admin section <br/> <br/>
-    
+        
     Accessing web interface and user manual: <br/>
         1. Use folloing guideline 
             
