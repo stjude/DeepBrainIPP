@@ -8,8 +8,8 @@ DeepBrainIpp is a pipeline for skull stripping, brain structures segmentation an
 
 # User guidance
   
-  Using DeepBrainIPP from web interface: <\br>
-    Setting up web application:<\br>
+  Using DeepBrainIPP from web interface:<br/>
+    Setting up web application:<br/>
         1. Setup IPP from https://github.com/JaneliaSciComp/jacs-cm 
         2. Setup singularity registry server from https://singularityhub.github.io/sregistry/docs/setup/#pancakes-installation
         3. Upload trained models from 'models' directory to singularity registry server
