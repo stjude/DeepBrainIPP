@@ -15,3 +15,4 @@ DeepBrainIpp is a pipeline for skull stripping, brain structures segmentation an
   2. Paraflocculous Model
 
 
+# Citation
