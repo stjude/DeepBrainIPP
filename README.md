@@ -18,6 +18,9 @@ DeepBrainIpp is a pipeline for skull stripping, brain structures segmentation an
   Accessing web interface and user manual (for users): <br/>
         1. Use folloing guideline https://github.com/stjude/DeepBrainIPP/blob/main/misc/DeepBrainIPP_users_manual_github.pdf
 
+<br/> <br/>
+Using DeepBrainIPP from command prompt without web interface 
+
 # Model Training 
   1. Skull Stripping Model
   2. Paraflocculous Model
