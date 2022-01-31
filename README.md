@@ -15,7 +15,7 @@ DeepBrainIpp is a pipeline for skull stripping, brain structures segmentation an
         3. Upload trained models from 'models' directory to singularity registry server <br/>
         4. Configure pipeline in the Admin section <br/>
   Accessing web interface and user manual: <br/>
-        1. Use folloing guideline 
+        1. Use folloing guideline https://github.com/stjude/DeepBrainIPP/blob/main/misc/DeepBrainIPP_users_manual_github.pdf
 
 # Model Training 
   1. Skull Stripping Model
