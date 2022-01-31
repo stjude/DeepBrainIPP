@@ -7,8 +7,10 @@ DeepBrainIpp is a pipeline for skull stripping, brain structures segmentation an
 ![skull stripping](misc/3.jpg?raw=true "Skull Stripping")
 
 # User guidance
+
   
-  Using DeepBrainIPP from web interface:<br/><br/>
+  Using DeepBrainIPP from web interface:
+  ===============================================
     System administrator: Setting up web application<br/>
         1. Setup IPP from https://github.com/JaneliaSciComp/jacs-cm <br/>
         2. Setup singularity registry server from https://singularityhub.github.io/sregistry/docs/setup/#pancakes-installation <br/>
@@ -18,8 +20,10 @@ DeepBrainIpp is a pipeline for skull stripping, brain structures segmentation an
      Users: Accessing web interface and user manual <br/>
         1. Use following guideline https://github.com/stjude/DeepBrainIPP/blob/main/misc/DeepBrainIPP_users_manual_github.pdf
 
-<br/> 
+
 Using DeepBrainIPP from command prompt without web interface 
+============================================================
+1. 
 
 # Model Training 
   1. Skull Stripping Model
