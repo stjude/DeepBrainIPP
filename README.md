@@ -16,7 +16,7 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
 # User guidance
 
   
-  Using DeepBrainIPP from web interface:
+  Accessing DeepBrainIPP from web interface:
  -----
     System administrator: Setting up web application
         1. Setup IPP from https://github.com/JaneliaSciComp/jacs-cm"
@@ -28,7 +28,7 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
         1. Use following guideline https://github.com/stjude/DeepBrainIPP/blob/main/misc/DeepBrainIPP_users_manual_github.pdf
 
 
-Using DeepBrainIPP from command prompt without web interface 
+Accessing DeepBrainIPP from command prompt without web interface 
 -----
         1.  Build singularity images using the recipe provided in "Singularity" folder
         2.  Enter necessary parameters in "config.json" file
