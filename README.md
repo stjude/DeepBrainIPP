@@ -6,24 +6,33 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
 
 ![skull stripping](misc/3.jpg?raw=true "Skull Stripping")
 
+# Requirements
+1. Supported GPU: NVIDIA DGX (RTX may work but have to Tested yet.) 
+2. Nvidia Driver 450.80.02
+3. CUDA Version: 11.0
+4. Python 3.6+
+5. Tensorflow, keras
+
 # User guidance
 
   
-  Using DeepBrainIPP from web interface:
+  Accessing DeepBrainIPP from web interface:
  -----
     System administrator: Setting up web application
-        1. Setup IPP from https://github.com/JaneliaSciComp/jacs-cm
+        1. Setup IPP from https://github.com/JaneliaSciComp/jacs-cm"
         2. Setup singularity registry server from https://singularityhub.github.io/sregistry/docs/setup/#pancakes-installation
-        3. Build singularity images using the recipe provided in "singularity_recipie" folder
+        3. Build singularity images using the recipe provided in "Singularity" folder
         4. Upload singularity images to installed singularity registry server
         5. Configure pipeline from the admin section
      Users: Accessing web interface and user manual
         1. Use following guideline https://github.com/stjude/DeepBrainIPP/blob/main/misc/DeepBrainIPP_users_manual_github.pdf
 
 
-Using DeepBrainIPP from command prompt without web interface 
+Accessing DeepBrainIPP from command prompt without web interface 
 -----
-1. 
+        1.  Build singularity images using the recipe provided in "Singularity" folder
+        2.  Enter necessary parameters in "config.json" file
+        3.  Run singularity image 
 
 # Model Training 
   1. Skull Stripping Model
