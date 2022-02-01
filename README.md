@@ -7,7 +7,7 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
 ![skull stripping](misc/3.jpg?raw=true "Skull Stripping")
 
 # Requirements
-1. Supported GPU: RTX 2080 Ti, NVIDIA DGX 
+1. Supported GPU: NVIDIA DGX (RTX may work but have to Tested yet.) 
 2. Nvidia Driver 450.80.02
 3. CUDA Version: 11.0
 4. Python 3.6+
