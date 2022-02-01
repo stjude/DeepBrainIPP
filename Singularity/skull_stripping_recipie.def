@@ -1,0 +1,51 @@
+Bootstrap: docker
+#From: tensorflow/tensorflow:latest-gpu-py3-jupyter
+From: nvcr.io/nvidia/tensorflow:20.08-tf2-py3
+%help
+This container is made by Shahinur Alam (sajonbuet@gmail.com)
+
+%setup
+
+
+%files
+
+%labels
+    Maintainer Shahinur
+    Version 1.0
+
+%environment
+
+
+%post
+	
+    apt-get install -y jq
+	python -m pip install --upgrade pip
+	pip install numpy pandas sklearn webcolors plotly matplotlib statsmodels factorial pynrrd pillow
+	pip install --upgrade numpy
+	pip install numexpr==2.7.3
+	pip install torch
+	pip uninstall -y tables
+	pip install scikit-image medpy nilearn SimpleITK h5py nibabel tifffile scipy opencv-python tables
+	#pip install --index-url https://test.pypi.org/simple/ tables	
+	pip install --upgrade keras
+
+
+%runscript
+echo "Arguments received: $*"
+source_path=`cat $1 | jq -r '.source_path'`
+input_dir=`cat $1 | jq -r '.input_dir'`
+output_dir=`cat $1 | jq -r '.output_dir'`
+original_voxel_resolutions=`cat $1 | jq -r '.original_voxel_resolutions'`
+foldername=`cat $1 | jq -r '.foldername'`
+is_diff_fold_struct=`cat $1 | jq -r '.is_diff_fold_struct'`
+model_type=`cat $1 | jq -r '.model_type'`
+view=`cat $1 | jq -r '.view'`
+echo $source_path
+model_path=${source_path}/Models/
+python3 ${source_path}/Scripts/mousebrainsegmentation/predict.py $model_path $source_path $input_dir $output_dir "$original_voxel_resolutions" $foldername $is_diff_fold_struct $model_type $view 
+
+
+
+
+
+
