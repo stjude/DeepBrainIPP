@@ -30,9 +30,9 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
 
 Using DeepBrainIPP from command prompt without web interface 
 -----
-1.  Build singularity images using the recipe provided in "Singularity" folder
-2.  Enter necessary parameters in "config.json" file
-3.  Run singularity image 
+        1.  Build singularity images using the recipe provided in "Singularity" folder
+        2.  Enter necessary parameters in "config.json" file
+        3.  Run singularity image 
 
 # Model Training 
   1. Skull Stripping Model
