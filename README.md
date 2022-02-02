@@ -85,3 +85,4 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
 ## Citation
 
 #### Acknowledgement
+We would like to thank Ellis et al. because piece of code has been adapted, updated and customized from thier work titled as "Trialing u-net training modifications for segmenting gliomas using open source deep learning framework"
