@@ -38,7 +38,7 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
             sudo singularity build skull_stripping.img skull_stripping_recipie.def
             
         2.  Enter necessary parameters in "config.json" file
-        4.  Choose model type in "config.json" that match your MRIs and need less resampling and interpolation 
+        4.  Choose model type in "config.json" that match your MRIs and need less interpolation in resampling 
             invivo-2: 0.06mm X 0.06mm X 0.48mm
             exvivo-1: 0.06mm X 0.06mm X 0.06mm
             exvivo-2: 0.08mm X 0.08mm X 0.08mm
