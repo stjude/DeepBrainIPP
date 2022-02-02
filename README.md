@@ -38,11 +38,11 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
             sudo singularity build skull_stripping.img skull_stripping_recipie.def
             
         2.  Enter necessary parameters in "config.json" file
-        4.  Choose model type in "config.json" that match your MRIs and need less interpolation in resampling 
+        3.  Choose model type in "config.json" that match your MRIs and need less interpolation in resampling 
             invivo-2: 0.06mm X 0.06mm X 0.48mm
             exvivo-1: 0.06mm X 0.06mm X 0.06mm
             exvivo-2: 0.08mm X 0.08mm X 0.08mm
-        5.  Run singularity image 
+        4.  Run singularity image 
             
             singularity run -B [location of data and absolute path of base folder of DeepBrainIPP] --nv  skull_stripping.img config.json
 
@@ -53,17 +53,16 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
             sudo singularity build antsregistrationbatch.img antsregistrationbatch.def
             
         2.  Enter necessary parameters in "registration_config.json" file
-       
-        5.  Run singularity image 
+        3. Choolse atlas from "Atlas" folder that match you MRIs modality
+        4.  Run singularity image 
             
             singularity run -B [location of data and absolute path of base folder of DeepBrainIPP] antsregistrationbatch.img registration_config.json
 
 #### Sub-cerebellar Structure Segmentation
 -----
        
-        2.  Enter necessary parameters in "registration_config.json" file and make "isCerebellum":"1" 
-            
-        5.  Run singularity image 
+        1.  Enter necessary parameters in "registration_config.json" file and make "isCerebellum":"1" 
+        2.  Run singularity image 
             
             singularity run -B [location of data and absolute path of base folder of DeepBrainIPP] antsregistrationbatch.img registration_config.json
 
