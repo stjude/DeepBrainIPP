@@ -1,0 +1,12 @@
+label, region name
+1,Rest-of-Brain
+2,External-Capsule
+3,Hippocampus
+4,Cerebellum
+5,Brain-stem
+6,Ventricles
+7,Olfactory-bulb
+8,Cortex
+9,Hypothalamus
+10,Thalamus
+11,Caudate-Putamen
