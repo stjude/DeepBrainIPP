@@ -1,0 +1,418 @@
+Bootstrap: docker
+From: ubuntu:latest
+%help
+This container is used to register multimodal images: 2D/3D, EM, LM, MRI etc.
+author: Shahinur Alam(sajonbuet@gmail.com)
+
+%setup
+
+
+%files 
+    #copy files inside container
+    #utility program to generate reports from registration outcomes and logs
+	antsgeneratereport.py /home/
+    CreateLabelImage.py /home/
+    Createmasks.py /home/
+    fiji-linux64 /home/
+
+%labels
+    Maintainer Shahinur
+    Version 1.0
+
+%environment
+
+
+%post
+    #install necessary libraries 
+	apt-get update && apt-get install -y
+	apt-get install -y build-essential
+	apt-get install -y g++
+	apt-get install -y zlib1g-dev
+	apt-get install -y git
+	apt-get install -y cmake
+	apt-get install -y jq
+	apt-get install -y python3-pip python3-dev
+	apt-get install -y python3-tk
+	pip3 install numpy matplotlib pynrrd nibabel fill-voids medpy
+	pip3 install pillow
+	pip3 install tifffile
+	pip3 install scipy
+	git config --global url."https://".insteadOf git://
+    	export SuperBuild_ANTS_USE_GIT_PROTOCOL="OFF"
+	pip3 install pandas sklearn scikit-image webcolors plotly matplotlib statsmodels factorial
+	pip3 install git+https://github.com/ANTsX/ANTsPy.git
+	python3.6 -m pip install scipy==1.2 --upgrade
+	apt-get install -y python3-opencv
+	
+	which cmake
+	git config --global url."https://".insteadOf git://
+	export SuperBuild_ANTS_USE_GIT_PROTOCOL="OFF"
+    mkdir /code 
+	cd /code
+	git clone https://github.com/ANTsX/ANTs.git
+	mkdir -p /code/bin/ants
+	cd /code/bin/ants
+	cmake /code/ANTs
+	make -j8
+	cp /code/ANTs/Scripts/*.* /code/bin/ants/bin/
+	export ANTSPATH=/code/bin/ants/bin
+	export PATH=${ANTSPATH}:$PATH
+	
+
+%runscript
+echo "Arguments received: $*"
+
+register_cerebellum_in_batch(){
+            prefix=$1
+            fixed_file=$2
+            move_file=$3
+            output_file=$4
+            reg_param_org=$5
+            reg_param_org=`echo "$reg_param_org" | sed -e "s|fixed_file|$fixed_file|g"`
+            
+            output_file=`echo "$move_file" | sed -e "s|wholebrain|cerebellum|g"`
+            mkdir -p "${output_file}"
+        	for files in "${move_file}"*
+            do
+
+                if [ -d "${files}" ]; then
+                    
+                    echo "files:  $files"    
+            		sequence=`date +%s`        
+            		foldername=`basename $files`
+            		out_file_name=${output_file}${foldername}
+                    out_file_name=${out_file_name}/
+            		mkdir -p ${out_file_name}
+                    files="$files/subregions/Cerebellum_extracted.nrrd"
+                    cp "$files" "$out_file_name"
+                    
+            		reg_param=`echo "$reg_param_org" | sed -e "s|move_file|$files|g"`
+            		command_param_str=" --output [${out_file_name}reg_by_cbi_salam_${prefix}_${sequence}_,${out_file_name}reg_by_cbi_salam_${prefix}_${sequence}_Warped.nii.gz,${out_file_name}reg_by_cbi_salam_${prefix}_${sequence}_InverseWarped.nii.gz]"
+            		run_cmd=" ${reg_param}${command_param_str}"
+                    #echo "............."
+                    #echo $run_cmd
+
+            		log_file=${out_file_name}log_${sequence}.txt
+            		touch $log_file
+            		/code/bin/ants/bin/antsRegistration ${run_cmd} > $log_file
+
+
+            		#reg_file=${output_file}reg_by_cbi_salam_SIMtoEM_1557351924_Warped.nii.gz
+            		reg_file=${out_file_name}reg_by_cbi_salam_${prefix}_${sequence}_Warped.nii.gz
+            		#call python script to generate reports
+            		python3 /home/antsgeneratereport.py $fixed_file $files $out_file_name $log_file $reg_file "\"${run_cmd}\""    
+        	
+                fi
+            done
+            exit 0
+}
+
+
+register_in_batch(){
+            prefix=$1
+            fixed_file=$2
+            move_file=$3
+            output_file=$4
+            reg_param_org=$5
+            reg_param_org=`echo "$reg_param_org" | sed -e "s|fixed_file|$fixed_file|g"`
+            output_file="$output_file/wholebrain/"
+            mkdir -p ${output_file}
+            
+        	for files in ${move_file}*_brain.nrrd
+        	do
+                    echo "files:  $files"
+                     
+            		sequence=`date +%s`
+            		foldername=`basename $files _segmented_brain.nrrd`
+            		out_file_name=${output_file}${foldername}
+                    out_file_name=${out_file_name}/
+            		mkdir -p ${out_file_name}
+                    cp $files ${out_file_name}
+            		reg_param=`echo "$reg_param_org" | sed -e "s|move_file|$files|g"`
+            		command_param_str=" --output [${out_file_name}reg_by_cbi_salam_${prefix}_${sequence}_,${out_file_name}reg_by_cbi_salam_${prefix}_${sequence}_Warped.nii.gz,${out_file_name}reg_by_cbi_salam_${prefix}_${sequence}_InverseWarped.nii.gz]"
+            		run_cmd=" ${reg_param}${command_param_str}"
+                    #echo "............."
+                    #echo $run_cmd
+
+            		log_file=${out_file_name}log_${sequence}.txt
+            		touch $log_file
+            		/code/bin/ants/bin/antsRegistration ${run_cmd} > $log_file
+
+
+            		#reg_file=${output_file}reg_by_cbi_salam_SIMtoEM_1557351924_Warped.nii.gz
+            		reg_file=${out_file_name}reg_by_cbi_salam_${prefix}_${sequence}_Warped.nii.gz
+            		#call python script to generate reports
+            		python3 /home/antsgeneratereport.py $fixed_file $files $out_file_name $log_file $reg_file "\"${run_cmd}\""    
+        	done
+            exit 0
+}
+
+
+operation_type=`cat $1 | jq -r '.operation_type'`
+
+if [ "$operation_type" = "createLandmarkImageAndTransformationMat" ]; then
+	fixed_file=`cat $1 | jq -r '.fixed_file'`
+	move_file=`cat $1 | jq -r '.move_file'`
+	#handling Landmarks if provided
+	fixed_file_landmarks=`cat $1 | jq -r '.fixed_file_landmarks'`
+	move_file_landmarks=`cat $1 | jq -r '.move_file_landmarks'`
+	start_row=`cat $1 | jq -r '.start_row'`
+	start_col=`cat $1 | jq -r '.start_col'`
+	dimension=`cat $1 | jq -r '.dimension'`
+	transform_mode=`cat $1 | jq -r '.transform_mode'`
+	iteration=`cat $1 | jq -r '.iteration'`
+	
+	ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS=`cat $1 | jq -r '.num_of_thread'`
+	
+	export ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS
+	export ANTSPATH=/code/bin/ants/bin
+	export PATH=${ANTSPATH}:$PATH
+	
+	
+	#if landmarks are supplied create labeled image and transformation matrix for initialization from landmarks
+	if [ -f $fixed_file ] && [ -f $move_file ] && [ -f $fixed_file_landmarks ] && [ -f $move_file_landmarks ] ; then
+		
+		echo "Creating labeled image"
+		python3 /home/CreateLabelImage.py $fixed_file $move_file $fixed_file_landmarks $move_file_landmarks $start_row $start_col
+		#calculate initial transformation matrix
+		fixed_label_image=`echo "$fixed_file" | sed -e "s|.nrrd|_landmark.nrrd|g"`
+		move_label_image=`echo "$move_file" | sed -e "s|.nrrd|_landmark.nrrd|g"`
+		init_trans_mat=`echo "$move_file" | sed -e "s|.nrrd|_init_transform.mat|g"`		
+		#create transformation matrix from the labeled image
+		
+		echo "Creating transformation file"
+		/code/bin/ants/bin/antsLandmarkBasedTransformInitializer $dimension $fixed_label_image $move_label_image $transform_mode $init_trans_mat $iteration
+	else 
+		echo "File does not exists"
+	fi	
+
+fi
+	
+if [ "$operation_type" = "applyTransformationToMoving" ]; then
+	
+	fixed_file=`cat $1 | jq -r '.fixed_file'`
+	move_file=`cat $1 | jq -r '.move_file'`
+	trans_mat=`cat $1 | jq -r '.trans_mat'`
+	output_file=`cat $1 | jq -r '.outputfile'`
+	reg_param_mask=`cat $1 | jq -r '.reg_param_mask'`
+	ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS=`cat $1 | jq -r '.num_of_thread'`
+	
+	export ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS
+	export ANTSPATH=/code/bin/ants/bin
+	export PATH=${ANTSPATH}:$PATH
+	echo $fixed_file
+	echo $move_file
+	echo $trans_mat
+	
+	if [ -f $fixed_file ] && [ -f $move_file ] && [ -f $trans_mat ] ; then	
+		
+		output_file="${output_file}/transformed_moved.nrrd"
+		reg_param_mask=`echo "$reg_param_mask" | sed -e "s|fixed_file|$fixed_file|g"`
+		reg_param_mask=`echo "$reg_param_mask" | sed -e "s|move_file|$move_file|g"`
+		reg_param_mask=`echo "$reg_param_mask" | sed -e "s|trans_mat|$trans_mat|g"`
+		reg_param_mask=`echo "$reg_param_mask" | sed -e "s|output_file|$output_file|g"`
+		
+		echo $reg_param_mask 
+		echo "....Applying Transformation to $move_file....."
+		/code/bin/ants/bin/antsApplyTransforms $reg_param_mask
+		echo "....Transformation is done....."
+	else 
+		echo "File does not exists"
+	fi
+
+fi
+
+if [ "$operation_type" = "createMask" ]; then
+	#handling Landmarks if provided
+	fixed_file=`cat $1 | jq -r '.fixed_file'`
+	move_file=`cat $1 | jq -r '.move_file'`
+	fixed_file_startZ=`cat $1 | jq -r '.fixed_file_startZ'`
+	fixed_file_endZ=`cat $1 | jq -r '.fixed_file_endZ'`
+	move_file_startZ=`cat $1 | jq -r '.move_file_startZ'`
+	move_file_endZ=`cat $1 | jq -r '.move_file_endZ'`
+	if [ -f $fixed_file ] && [ -f $move_file ] ; then
+		echo "creating masks"
+		python3 /home/Createmasks.py $fixed_file $move_file $fixed_file_startZ $fixed_file_endZ $move_file_startZ $move_file_endZ
+		echo "END masks creations"
+	else 
+		echo "File does not exists"
+	fi
+	
+fi
+
+
+
+if [ "$operation_type" = "enhanceContrast" ]; then
+	echo this is $1
+fi
+
+
+if [ "$operation_type" = "antsregistration" ]; then
+
+	prefix=`cat $1 | jq -r '.out_file_prefix'`
+	fixed_file=`cat $1 | jq -r '.fixed_file'`
+	move_file=`cat $1 | jq -r '.move_file'`
+	output_file=`cat $1 | jq -r '.outputfile'`
+	reg_param_org=`cat $1 | jq -r '.reg_param'`
+	ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS=`cat $1 | jq -r '.num_of_thread'`
+    isbatch=`cat $1 | jq -r '.batch'`
+    isCerebellum=`cat $1 | jq -r '.isCerebellum'`
+	export ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS
+	export ANTSPATH=/code/bin/ants/bin
+	export PATH=${ANTSPATH}:$PATH
+        
+	echo "Batch Processing starts"
+    if [ "$isbatch" = "1" ]; then
+         register_in_batch "$prefix" "$fixed_file" "$move_file" "$output_file" "$reg_param_org"
+    fi
+    
+    echo "Batch Processing starts"
+    if [ "$isCerebellum" = "1" ]; then
+         register_cerebellum_in_batch "$prefix" "$fixed_file" "$move_file" "$output_file" "$reg_param_org"
+    fi
+
+	
+	#handling Masks if provided
+	fixed_file_mask=`cat $1 | jq -r '.fixed_file_mask'`
+	move_file_mask=`cat $1 | jq -r '.move_file_mask'`
+	
+	#handling Landmarks if provided
+	fixed_file_landmarks=`cat $1 | jq -r '.fixed_file_landmarks'`
+	move_file_landmarks=`cat $1 | jq -r '.move_file_landmarks'`
+	start_row=`cat $1 | jq -r '.start_row'`
+	start_col=`cat $1 | jq -r '.start_col'`
+	dimension=`cat $1 | jq -r '.dimension'`
+	transform_mode=`cat $1 | jq -r '.transform_mode'`
+	iteration=`cat $1 | jq -r '.iteration'`
+	enhance_contrast=`cat $1 | jq -r '.enhance_contrast'`
+	
+	
+	#adjust properties and enhance contrast
+	base_filename=`basename ${fixed_file}`
+	base_dir=`dirname ${fixed_file}`
+	/home/fiji-linux64/Fiji.app/ImageJ-linux64 --ij2 --headless --console -macro /home/fiji-linux64/Fiji.app/resize.ijm "${base_dir}/##${base_filename}##${enhance_contrast}"
+	fixed_file="${base_dir}/modified_${base_filename}"
+	
+	
+	base_filename=`basename ${move_file}`
+	base_dir=`dirname ${move_file}`
+	/home/fiji-linux64/Fiji.app/ImageJ-linux64 --ij2 --headless --console -macro /home/fiji-linux64/Fiji.app/resize.ijm "${base_dir}/##${base_filename}##${enhance_contrast}"
+	move_file="${base_dir}/modified_${base_filename}"
+	
+	
+	
+	#if landmarks are supplied create labeled image and transformation matrix for initialization from landmarks
+	if [ -f $fixed_file ] && [ -f $move_file ] && [ -f $fixed_file_landmarks ] && [ -f $move_file_landmarks ] ; then
+		python3 /home/CreateLabelImage.py $fixed_file $move_file $fixed_file_landmarks $move_file_landmarks $start_row $start_col
+		#calculate initial transformation matrix
+		fixed_label_image=`echo "$fixed_file" | sed -e "s|.nrrd|_landmark.nrrd|g"`
+		move_label_image=`echo "$move_file" | sed -e "s|.nrrd|_landmark.nrrd|g"`
+		init_trans_mat=`echo "$move_file" | sed -e "s|.nrrd|_init_transform.mat|g"`		
+		#create transformation matrix from the labeled image
+		/code/bin/ants/bin/antsLandmarkBasedTransformInitializer $dimension $fixed_label_image $move_label_image $transform_mode $init_trans_mat $iteration
+	fi	
+
+	#check files before starting program
+	if [ -f $fixed_file ] && [ -f $move_file ] ; then	
+		
+		echo $fixed_file
+		echo $move_file
+		reg_param=`echo "$reg_param_org" | sed -e "s|fixed_file|$fixed_file|g"`
+		reg_param=`echo "$reg_param" | sed -e "s|move_file|$move_file|g"`
+		which /code/bin/ants/bin/antsRegistration
+		echo "....Starting Registrations....."
+		indx=0
+		commnd=""
+		param_len=${#reg_param}
+		echo $param_len
+		while [  $indx -le $param_len ]; do	
+			tmp_c=`expr substr "$reg_param" $indx 1`
+			if [ "$tmp_c" = "@" ]; then
+					#echo $commnd
+					sequence=`date +%s`
+					command_param_str=" --output [${output_file}reg_by_cbi_salam_${prefix}_${sequence}_,${output_file}reg_by_cbi_salam_${prefix}_${sequence}_Warped.nii.gz,${output_file}reg_by_cbi_salam_${prefix}_${sequence}_InverseWarped.nii.gz]"
+					run_cmd="${command_param_str}${commnd}"
+					
+					if [ -f $fixed_file_landmarks ] && [ -f $move_file_landmarks ] && [ -f $init_trans_mat ]; then
+						run_cmd=`echo "$run_cmd" | sed -e "s|--initial-moving-transform|-r $init_trans_mat |g"`
+					fi
+					
+					if [ -f $fixed_file_mask ] && [ -f $move_file_mask ] ; then
+					
+							#adjust properties and enhance contrast
+							base_filename=`basename ${fixed_file_mask}`
+							base_dir=`dirname ${fixed_file_mask}`
+							/home/fiji-linux64/Fiji.app/ImageJ-linux64 --ij2 --headless --console -macro /home/fiji-linux64/Fiji.app/resize.ijm "${base_dir}/##${base_filename}##False"
+							fixed_file_mask="${base_dir}/modified_${base_filename}"
+							
+							
+							base_filename=`basename ${move_file_mask}`
+							base_dir=`dirname ${move_file_mask}`
+							/home/fiji-linux64/Fiji.app/ImageJ-linux64 --ij2 --headless --console -macro /home/fiji-linux64/Fiji.app/resize.ijm "${base_dir}/##${base_filename}##False"
+							move_file_mask="${base_dir}/modified_${base_filename}"
+
+							run_cmd="${run_cmd} --masks [${fixed_file_mask},${move_file_mask}]"
+						
+					fi
+					 
+					echo $run_cmd
+					
+					log_file=${output_file}log_${sequence}.txt
+					touch $log_file
+					/code/bin/ants/bin/antsRegistration ${run_cmd} > $log_file
+					
+					
+					#reg_file=${output_file}reg_by_cbi_salam_SIMtoEM_1557351924_Warped.nii.gz
+					reg_file=${output_file}reg_by_cbi_salam_${prefix}_${sequence}_Warped.nii.gz
+					#call python script to generate reports
+					python3 /home/antsgeneratereport.py $fixed_file $move_file $output_file $log_file $reg_file "\"${run_cmd}\""  
+					
+			else
+				commnd="$commnd$tmp_c"
+			fi
+		 	indx=`expr $indx + 1`
+		done
+		sequence=`date +%s`
+		command_param_str=" --output [${output_file}reg_by_cbi_salam_${prefix}_${sequence}_,${output_file}reg_by_cbi_salam_${prefix}_${sequence}_Warped.nii.gz,${output_file}reg_by_cbi_salam_${prefix}_${sequence}_InverseWarped.nii.gz]"
+		run_cmd="${command_param_str}${commnd}"
+		
+		if [ -f $fixed_file_landmarks ] && [ -f $move_file_landmarks ] && [ -f $init_trans_mat ]; then
+				run_cmd=`echo "$run_cmd" | sed -e "s|--initial-moving-transform|-r $init_trans_mat |g"`
+		fi
+		
+		if [ -f $fixed_file_mask ] && [ -f $move_file_mask ] ; then
+				run_cmd="${run_cmd} --masks [${fixed_file_mask},${move_file_mask}]"
+		fi
+		echo $run_cmd
+		
+		log_file=${output_file}log_${sequence}.txt
+		touch $log_file
+		/code/bin/ants/bin/antsRegistration ${run_cmd} > $log_file
+		
+		
+		#reg_file=${output_file}reg_by_cbi_salam_SIMtoEM_1557351924_Warped.nii.gz
+		reg_file=${output_file}reg_by_cbi_salam_${prefix}_${sequence}_Warped.nii.gz
+		#call python script to generate reports
+		python3 /home/antsgeneratereport.py $fixed_file $move_file $output_file $log_file $reg_file "\"${run_cmd}\""  
+		echo "....Registration Completed!...."
+	else
+   		echo "File $fixed_file OR $move_file does not exist."
+	fi
+fi
+            
+if [ "$operation_type" = "quantifybrain" ]; then
+
+    path=`cat $1 | jq -r '.outputfile'`
+    mask_path=`cat $1 | jq -r '.mask'`
+    structure_file=`cat $1 | jq -r '.structure'`
+    resolution=`cat $1 | jq -r '.original_voxel'`
+    interpolation=`cat $1 | jq -r '.interpolation'`
+	source_path=`cat $1 | jq -r '.source_path'`
+    ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS=`cat $1 | jq -r '.num_of_thread'`
+	export ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS
+	export ANTSPATH=/code/bin/ants/bin
+	export PATH=${ANTSPATH}:$PATH
+	python3 ${source_path}/Scripts/mousebrainsegmentation/quantify_brain.py "$path" "$mask_path" "$structure_file" "$resolution" "$interpolation"
+fi
+
+            
