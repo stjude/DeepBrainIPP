@@ -30,7 +30,7 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
 
 ### Accessing DeepBrainIPP from command prompt without web interface 
 
-Skull Stripping and Paraflocculus Segmentation
+#### Skull Stripping and Paraflocculus Segmentation
 -----
         1.  Build singularity images using the recipe provided in "Singularity" folder
             
@@ -41,7 +41,7 @@ Skull Stripping and Paraflocculus Segmentation
             
             singularity run -B [location of data and absolute path of base folder of DeepBrainIPP] --nv  skull_stripping.img config.json
 
-Brain Structure Segmentation
+#### Brain Structure Segmentation
 -----
 ## Model Training 
   1. Skull Stripping Model
