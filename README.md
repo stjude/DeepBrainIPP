@@ -58,6 +58,16 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
             
             singularity run -B [location of data and absolute path of base folder of DeepBrainIPP] antsregistrationbatch.img registration_config.json
 
+#### Sub-cerebellar structure Segmentation
+-----
+       
+        2.  Enter necessary parameters in "registration_config.json" file and make "isCerebellum":"1" 
+            
+        5.  Run singularity image 
+            
+            singularity run -B [location of data and absolute path of base folder of DeepBrainIPP] antsregistrationbatch.img registration_config.json
+
+
 ## Model Training 
   1. Skull Stripping Model
   2. Paraflocculus Model
