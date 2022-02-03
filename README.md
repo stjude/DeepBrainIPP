@@ -43,6 +43,7 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
             exvivo-1: 0.06mm X 0.06mm X 0.06mm
             exvivo-2: 0.08mm X 0.08mm X 0.08mm
         4.  Run singularity image 
+        5.  Make sure your MRIs is a coronal scan (back to front) 
             
             singularity run -B [location of data and absolute path of base folder of DeepBrainIPP] --nv  skull_stripping.img config.json
 
