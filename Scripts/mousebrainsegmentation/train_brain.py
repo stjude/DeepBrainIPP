@@ -11,7 +11,7 @@ print(tf.__version__)
 
 #BraTS_2020_subject_ID
 config = dict()
-config["image_shape"] = (320, 320, 48)  # This determines what shape the images will be cropped/resampled to.
+config["image_shape"] = (448,448, 48)  # This determines what shape the images will be cropped/resampled to.
 config["patch_shape"] =None# (64,64,64)  # switch to None to train on the whole image
 config["labels"] = (1)  # the label numbers on the input image
 config["n_base_filters"] = 16  # these are doubled after each downsampling
@@ -32,7 +32,7 @@ config["n_epochs"] = 500  # cutoff the training after this many epochs
 config["patience"] = 10  # learning rate will be reduced after this many epochs if the validation loss is not improving
 config["early_stop"] = 50  # training will be stopped after this many epochs without the validation loss improving
 config["initial_learning_rate"] = 5e-5
-config["learning_rate_drop"] = 0.5  # factor by which the learning rate will be reduced
+config["learning_rate_drop"] = 0.7  # factor by which the learning rate will be reduced
 config["validation_split"] = 0.8  # portion of the data that will be used for training
 config["flip"] = False  # augments the data by randomly flipping an axis during
 config["permute"] = False  # data shape must be a cube. Augments the data by permuting in various directions
