@@ -81,7 +81,8 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
 ## Model Training 
   1. Skull Stripping Model
   2. Paraflocculus Model
-
+## Dataset Used for training models:
+http://ftp.stjude.org/pub/CBI_Bioimage_Data/DeepBrainIPP_dataset.tgz
 
 ## Citation
 
