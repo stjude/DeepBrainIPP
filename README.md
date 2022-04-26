@@ -37,11 +37,59 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
             
             sudo singularity build skull_stripping.img skull_stripping_recipie.def
             
-        2.  Enter necessary parameters in "config.json" file located in "Singularity" folder
-        3.  Choose model type in "config.json" that match your MRIs and need less interpolation in resampling 
-            invivo-2: 0.06mm X 0.06mm X 0.48mm
-            exvivo-1: 0.06mm X 0.06mm X 0.06mm
-            exvivo-2: 0.08mm X 0.08mm X 0.08mm
+        2.  Make sure your input MRI volumes are in separate folders. MRIs can be 3D stacks or seriese of slice. see Example dataset for details.
+             
+        
+            folder_name1/prefix_name1_*.nii.gz
+            folder_name2/prefix_name2_*.nii.gz
+            
+        3.  Enter necessary parameters in "config.json" file located in "Singularity" folder. The config file has following parameter:
+        
+            a. input_dir: Absolute path of your input MRI volumes. For example, to use our Example dataset you can set path like below..
+              
+              "input_dir": "{cloned path}/DeepBrainIPP/Example_Dataset/input_volumes/"
+            
+            b. foldername: prefix/pattern of the MRI volumes name. For example, our Example dataset contains two MRI volumes and they are in two separate folders,
+               "ID_GOP87", "ID_5647". Both MRI volumes have prefix "ID_*".
+            
+              "foldername": "ID_",
+            
+            c. output_dir: The absolute path where you want to store the segmentation outcome.
+            
+              "output_dir": "{cloned path}/DeepBrainIPP/Example_Dataset/segmentation_outcome/", 
+            
+            d. source_path: Where you cloned the code. Absolute path of "DeepBrainIPP" folder
+            
+              "source_path": "{cloned path}/DeepBrainIPP", 
+            
+            
+            e. model: Absolute path of folder that contains the models after you clone the project
+            
+              "model": "{cloned path}/DeepBrainIPP/Models/", 
+            
+            f. is_diff_fold_struct: This can be used when you want to manually organize file.
+              
+              "is_diff_fold_struct": 0.0
+             
+            g. model_type: You need to select models based on the resolution of your MRI volumes that requires less interpolation to match with
+            models. For our Example dataset use "exvivo-2". 
+              
+              invivo-2: 0.06mm X 0.06mm X 0.48mm
+              exvivo-1: 0.06mm X 0.06mm X 0.06mm
+              exvivo-2: 0.08mm X 0.08mm X 0.08mm,
+              
+            h. original_voxel_resolutions: Resolution of your MRIs
+              
+              "original_voxel_resolutions": "0.06,0.06,0.06"
+            i. view: This is for reslicing volumes
+              
+              "view": "NO",
+             J. ignore the following if you do not use HPC cluster
+              
+              "cbihosts": "local_machine",
+              "gridQueue": "dgx",
+              "gridResources": 60000.0
+          
         4.  Run singularity image 
         5.  Make sure your MRIs is a coronal scan (back to front) 
             
