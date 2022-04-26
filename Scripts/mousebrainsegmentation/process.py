@@ -224,6 +224,7 @@ def post_process_segmentation_PF(out_path_after_preprocess,raw_volume_path, orig
 
         for files in glob.glob(input_path+"/*.nii.gz"):
             filename=os.path.basename(files).split(".")[0]
+            print(files)
             img,h=load(files)
             segmented_img,rh=load(raw_volume_path+filename+"/"+filename+"_brain.nii.gz")
             #img[img>0.2]=1.0

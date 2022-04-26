@@ -1,5 +1,8 @@
 
 #This script is used to invoke various methods to organize data and perform skull stripping and PF segmentation
+
+import os
+os.environ["CUDA_VISIBLE_DEVICES"]="0,1"
 from process import read_raw_images_invivo_non_unf, read_raw_images_invivo_unf,post_process_segmentation, post_process_segmentation_PF
 from process import fetch_files_validation
 import os,sys

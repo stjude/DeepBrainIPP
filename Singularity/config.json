@@ -1,0 +1,14 @@
+{
+"input_dir": "/research/sharedresources/cbi/data_exchange/zakhagrp/shahinur/deepbrainipp_github/DeepBrainIPP/Example_Dataset/input_volumes/",
+"foldername": "ID_",
+"output_dir": "/research/sharedresources/cbi/data_exchange/zakhagrp/shahinur/deepbrainipp_github/DeepBrainIPP/Example_Dataset/segmentation_outcome/", 
+"source_path": "/research/sharedresources/cbi/data_exchange/zakhagrp/shahinur/github_project/DeepBrainIPP", 
+"model": "/research/sharedresources/cbi/data_exchange/zakhagrp/shahinur/deepbrainipp_github/DeepBrainIPP/Models/", 
+"is_diff_fold_struct": 0.0, 
+"model_type": "exvivo-2",
+"original_voxel_resolutions": "0.06,0.06,0.06",
+"view": "NO",
+"cbihosts": "local_machine",
+"gridQueue": "dgx",
+"gridResources": 60000.0
+}

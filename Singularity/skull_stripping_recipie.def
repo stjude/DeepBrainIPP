@@ -9,6 +9,7 @@ This container is made by Shahinur Alam (sajonbuet@gmail.com)
 
 %files
 
+    /home/salam/Study/IPP/ants/SingularityBuild/cnndgx/mousebrainsegmentation/ /home/mousebrainsegmentation/
 %labels
     Maintainer Shahinur
     Version 1.0
@@ -17,17 +18,20 @@ This container is made by Shahinur Alam (sajonbuet@gmail.com)
 
 
 %post
-	
+	mkdir -p /home/mousebrainsegmentation/
     apt-get install -y jq
 	python -m pip install --upgrade pip
 	pip install numpy pandas sklearn webcolors plotly matplotlib statsmodels factorial pynrrd pillow
 	pip install --upgrade numpy
+	pip install scipy==1.4.1
+	pip install nilearn==0.9.0
 	pip install numexpr==2.7.3
-	pip install torch
-	pip uninstall -y tables
-	pip install scikit-image medpy nilearn SimpleITK h5py nibabel tifffile scipy opencv-python tables
-	#pip install --index-url https://test.pypi.org/simple/ tables	
-	pip install --upgrade keras
+	pip install scikit-image medpy SimpleITK h5py nibabel tifffile scipy opencv-python tables
+	#pip install --index-url https://test.pypi.org/simple/tables	
+	#pip install tensorflow-gpu
+	#pip install torch==1.8.1+cu111 torchvision==0.9.1+cu111 torchaudio==0.8.1 -f https://download.pytorch.org/whl/torch_stable.html
+	pip install keras==2.4.0
+	
 
 
 %runscript
@@ -42,7 +46,9 @@ model_type=`cat $1 | jq -r '.model_type'`
 view=`cat $1 | jq -r '.view'`
 echo $source_path
 model_path=${source_path}/Models/
-python3 ${source_path}/Scripts/mousebrainsegmentation/predict.py $model_path $source_path $input_dir $output_dir "$original_voxel_resolutions" $foldername $is_diff_fold_struct $model_type $view 
+python3 ${source_path}/Scripts/mousebrainsegmentation/predict.py $model_path $source_path $input_dir $output_dir "$original_voxel_resolutions" $foldername $is_diff_fold_struct $model_type $view
+
+
 
 
 
