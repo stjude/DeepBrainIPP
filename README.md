@@ -101,13 +101,45 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
 #### Brain Structure Segmentation
 -----
         1. Download fiji from https://imagej.net/software/fiji/downloads
+        2. Extract it and put in "Singularity" folder
         2. Make Sure fiji runs headlessly
         2.  Build singularity images using the recipe provided in "Singularity" folder. Feel free to contact if you can not build the image. We will upload to FTP
             
             sudo singularity build antsregistrationbatch.img antsregistrationbatch.def
             
-        2.  Enter necessary parameters in "registration_config.json" file
+        2.  Enter necessary parameters in "registration_config.json" file. Specially the following
         
+          a. batch: when you have multiple files
+
+           "batch": 1.0,
+
+           b. 
+           
+              "bind_path": "Bind path to for data", 
+           
+           c. 
+           
+              "dimension": 3.0,
+           d. 
+              "enhance_contrast": "True", 
+           e. 
+              
+              "fixed_file": "{cloned path}/DeepBrainIPP/Atlas/ex-vivo_template.nrrd",
+           f. 
+              
+              "move_file": "{cloned path}/DeepBrainIPP/Example_Dataset/segmentation_outcome/final_segmentation/",
+           g. 
+           
+              "num_of_thread": 15.0,
+           h. 
+           
+              "operation_type": "antsregistration", 
+           i. 
+           
+              "outputfile": "{cloned path}/DeepBrainIPP/Example_Dataset/segmentation_outcome/Registration_outcomes/", 
+           j. 
+           
+              "reg_param": "commands from user's manual https://github.com/stjude/DeepBrainIPP/blob/main/misc/DeepBrainIPP_users_manual_github.pdf"
         
         3. Choolse atlas from "Atlas" folder that match you MRIs modality
         4.  Run singularity image 
