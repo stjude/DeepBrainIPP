@@ -33,14 +33,15 @@ author: Shahinur Alam(sajonbuet@gmail.com)
 	apt-get install -y jq
 	apt-get install -y python3-pip python3-dev
 	apt-get install -y python3-tk
-	pip3 install numpy matplotlib pynrrd nibabel fill-voids medpy
+	pip3 install numpy matplotlib pynrrd nibabel medpy
 	pip3 install pillow
 	pip3 install tifffile
+	pip install fill-voids
 	pip3 install scipy
 	git config --global url."https://".insteadOf git://
-    	export SuperBuild_ANTS_USE_GIT_PROTOCOL="OFF"
+    export SuperBuild_ANTS_USE_GIT_PROTOCOL="OFF"
 	pip3 install pandas sklearn scikit-image webcolors plotly matplotlib statsmodels factorial
-	pip3 install git+https://github.com/ANTsX/ANTsPy.git
+	pip install git+https://github.com/ANTsX/ANTsPy.git
 	python3.6 -m pip install scipy==1.2 --upgrade
 	apt-get install -y python3-opencv
 	

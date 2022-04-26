@@ -1,0 +1,15 @@
+[Desktop Entry]
+Version=1.0
+Name=ImageJ
+GenericName=ImageJ
+X-GNOME-FullName=ImageJ
+Comment=Scientific Image Analysis
+Type=Application
+Categories=Education;Science;ImageProcessing;
+Exec=/home/salam/tools/image_new/fiji-linux64/Fiji.app/ImageJ-linux64 %F
+TryExec=/home/salam/tools/image_new/fiji-linux64/Fiji.app/ImageJ-linux64
+Terminal=false
+StartupNotify=true
+MimeType=image/*;
+Icon=/home/salam/tools/image_new/fiji-linux64/Fiji.app/images/icon.png
+StartupWMClass=net-imagej-launcher-ClassLauncher
