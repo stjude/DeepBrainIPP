@@ -94,6 +94,7 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
         5.  Make sure your MRIs is a coronal scan (back to front) 
             
             singularity run -B [location of data and absolute path of base folder of DeepBrainIPP] --nv  skull_stripping.img config.json
+        6. Once the process is finished the skull stripped brain will be stored in "final_segmentation" folder and measured volumes will be stored in ".csv" file
 
 #### Brain Structure Segmentation
 -----
@@ -106,9 +107,7 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
         4.  Run singularity image 
             
             singularity run -B [location of data and absolute path of base folder of DeepBrainIPP] antsregistrationbatch.img registration_config.json
-        
-        5. Once the process is finished the skull stripped brain will be stored in "final_segmentation" folder and measured volumes will be stored in ".csv" file
-
+       
 #### Sub-cerebellar Structure Segmentation
 -----
        
