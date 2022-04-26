@@ -96,6 +96,7 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
             singularity run -B [location of data and absolute path of base folder of DeepBrainIPP] --nv  skull_stripping.img config.json
         
         6. Once the process is finished the skull stripped brain will be stored in "final_segmentation" folder and measured volumes will be stored in ".csv" file
+        7. Similarly segmented Paraflocculus will be stored in "PF_outer_final_segmentation"
 
 #### Brain Structure Segmentation
 -----
