@@ -6,7 +6,7 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
 
 ![skull stripping](misc/3.jpg?raw=true "Skull Stripping")
 
-## Requirements
+## Hardware and software requirements for model inference and training
 1. Supported GPU: NVIDIA DGX 
 2. Nvidia Driver 450.80.02
 3. CUDA Version: 11.0
@@ -14,24 +14,11 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
 5. Tensorflow, keras
 6. Singularity: all the necessary requirements are listed in Singularity recipie file
 
-## User guidance
+## User guide for inference
 
-  
-  ### Accessing DeepBrainIPP from web interface:
- -----
-     System administrator: Setting up web application
-        1. Setup IPP from https://github.com/JaneliaSciComp/jacs-cm"
-        2. Setup singularity registry server from https://singularityhub.github.io/sregistry/docs/setup/#pancakes-installation
-        3. Build singularity images using the recipe provided in "Singularity" folder
-        4. Upload singularity images to installed singularity registry server
-        5. Configure pipeline from the admin section
-     Users: Accessing web interface and user manual
-        1. Use following guideline https://github.com/stjude/DeepBrainIPP/blob/main/misc/DeepBrainIPP_users_manual_github.pdf
+### Accessing DeepBrainIPP from command prompt (does not require setting up IPP)
 
-
-### Accessing DeepBrainIPP from command prompt without web interface 
-
-#### Skull Stripping and Paraflocculus Segmentation
+#### Skull Stripping (Figure 1. Step 1-2 in draft manuscript ) and Paraflocculus Segmentation (Figure 1. Branch II ) 
 -----
         1.  Build singularity images using the recipe provided in "Singularity" folder
             
@@ -98,7 +85,7 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
         6. Once the process is finished the skull stripped brain will be stored in "final_segmentation" folder and measured volumes will be stored in ".csv" file
         7. Similarly segmented Paraflocculus will be stored in "PF_outer_final_segmentation"
 
-#### Brain Structure Segmentation
+#### Large Brain Region Registration based Segmentation (Figure 1. Step 2-5 in draft manuscript )
 -----
         1. Download fiji from https://imagej.net/software/fiji/downloads
         2. Extract it and put in "Singularity" folder
@@ -145,7 +132,7 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
             
             singularity run -B [location of data and absolute path of base folder of DeepBrainIPP] antsregistrationbatch.img registration_config.json
        
-#### Sub-cerebellar Structure Segmentation
+#### Ex vivo Sub-cerebellar Structure Segmentation (Figure 1. Step 6-8 in draft manuscript ))
 -----
        
         1.  Enter necessary parameters in "registration_config.json" file and make "isCerebellum":"1" 
@@ -186,7 +173,20 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
 
 
 
-## Model Training 
+  
+  ### Accessing DeepBrainIPP from web interface (requires setting up IPP):
+ -----
+     System administrator: Setting up web application
+        1. Setup IPP from https://github.com/JaneliaSciComp/jacs-cm"
+        2. Setup singularity registry server from https://singularityhub.github.io/sregistry/docs/setup/#pancakes-installation
+        3. Build singularity images using the recipe provided in "Singularity" folder
+        4. Upload singularity images to installed singularity registry server
+        5. Configure pipeline from the admin section
+     Users: Accessing web interface and user manual
+        1. Use following guideline https://github.com/stjude/DeepBrainIPP/blob/main/misc/DeepBrainIPP_users_manual_github.pdf
+
+
+## User Guide for Model Training 
   1. Training dataset available at http://ftp.stjude.org/pub/CBI_Bioimage_Data/DeepBrainIPP_dataset.tgz
   2. Skull Stripping Model
   3. Paraflocculus Model
