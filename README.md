@@ -115,33 +115,32 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
 
            b. 
            
-              "bind_path": "Bind path to for data", 
+              "bind_path": "Bind path to mount data location inside Singularity", 
            
-           c. 
-           
-              "dimension": 3.0,
-           d. 
-              "enhance_contrast": "True", 
-           e. 
+           c. fixed_file: Atlas/template based on ex vivo and in vivo MRIs
               
               "fixed_file": "{cloned path}/DeepBrainIPP/Atlas/ex-vivo_template.nrrd",
-           f. 
+           
+           d. move_file: folder where skull stripped volumes are stored. 
               
               "move_file": "{cloned path}/DeepBrainIPP/Example_Dataset/segmentation_outcome/final_segmentation/",
-           g. 
+           
+           e. num_of_thread: Allocate based on your CPU
            
               "num_of_thread": 15.0,
-           h. 
+           
+           f. operation_type: Define what operation you want to perform. e.g "antsregistration" or "quantifybrain"
            
               "operation_type": "antsregistration", 
-           i. 
+           
+           g. outputfile: Where you want to save segmented brain structures.
            
               "outputfile": "{cloned path}/DeepBrainIPP/Example_Dataset/segmentation_outcome/Registration_outcomes/", 
-           j. 
+           
+           h. reg_param: This parameters are directly pass to ANTs. This is MRIs/dataset dependant. However, two sets of parameter is provided in user manual that                 we used for our ex vivo and in vivo image registration
            
               "reg_param": "commands from user's manual https://github.com/stjude/DeepBrainIPP/blob/main/misc/DeepBrainIPP_users_manual_github.pdf"
         
-        3. Choolse atlas from "Atlas" folder that match you MRIs modality
         4.  Run singularity image 
             
             singularity run -B [location of data and absolute path of base folder of DeepBrainIPP] antsregistrationbatch.img registration_config.json
