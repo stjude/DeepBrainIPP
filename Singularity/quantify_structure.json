@@ -1,0 +1,11 @@
+{"cbihosts": "xxxxxxx", 
+"gridQueue": "large_mem", 
+"gridResources": 20000.0,
+"inputFolder": "/research/sharedresources/cbi/",
+"interpolation": "BSpline[3]", 
+"mask": "/home/salam/cnn/DeepBrainIPP/DeepBrainIPP/Atlas/Atlases/ex-vivo_template.nrrd", 
+"num_of_thread": 15.0,
+"operation_type": "quantifybrain",
+"original_voxel": "0.06,0.06,0.06", 
+"outputfile": "/home/salam/cnn/DeepBrainIPP/DeepBrainIPP/Example_Dataset/segmentation_outcome/Registration_outcomes/wholebrain/",
+"structure": "/home/salam/cnn/DeepBrainIPP/DeepBrainIPP/Atlas/Atlases/ex-vivo_regionmap.txt"}
