@@ -156,11 +156,33 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
 #### Quantifying Segmented Structures to receive measurements in .csv file
 -----
        
-        2.  Enter necessary parameters in "registration_config.json" file and "operation_type": "quantifybrain",
-            
+        2.  Enter necessary parameters in "quantify_structure.json" file.
+          
+          a. interpolation: interpolation such as linear, or KNN or Spline
+          
+          "interpolation": "BSpline[3]", 
+          
+          b. mask: mask associated you atlas or template 
+          
+          "mask": "{cloned path}/DeepBrainIPP/Atlas/Atlases/ex-vivo_template.nrrd", 
+          
+          c. "operation_type": "quantifybrain",
+          
+          d. original_voxel: Voxel resolution to what MRIs were resampled (depends on choosen models type)
+          
+          "original_voxel": "0.06,0.06,0.06", 
+          
+          e outputfile: location where registered volumed are stored
+          
+          ."outputfile": "{cloned path}/DeepBrainIPP/Example_Dataset/segmentation_outcome/Registration_outcomes/wholebrain/",
+          
+          f. structure: File that contains labels of the structures annotated in the mask
+          
+          "structure": "{cloned path}/DeepBrainIPP/Atlas/Atlases/ex-vivo_regionmap.txt"
+
         5.  Run singularity image 
             
-            singularity run -B [location of data and absolute path of base folder of DeepBrainIPP] antsregistrationbatch.img registration_config.json
+            singularity run -B [location of data and absolute path of base folder of DeepBrainIPP] antsregistrationbatch.img quantify_structure.json
 
 
 
