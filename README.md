@@ -87,11 +87,14 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
         7. Similarly segmented Paraflocculus will be stored in "PF_outer_final_segmentation"
 
 #### Large Brain Region Registration based Segmentation (Figure 1. Step 2-5 in draft manuscript )
+##### If you are unable to build the singularity image use following link to download it. 
 -----
+
+
         1. Download fiji from https://imagej.net/software/fiji/downloads
         2. Extract it and put in "Singularity" folder
         2. Make Sure fiji runs headlessly
-        2.  Build singularity images using the recipe provided in "Singularity" folder. Feel free to contact if you can not build the image. We will upload to FTP
+        2.  Build singularity images using the recipe provided in "Singularity" folder. Feel free to contact if you can not build the image. 
             
             sudo singularity build antsregistrationbatch.img antsregistrationbatch.def
             
