@@ -109,11 +109,11 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
             
         2.  Enter necessary parameters in "registration_config.json" file. Specially the following
         
-          a. batch: when you have multiple files
+           a. batch: when you have multiple files
 
-           "batch": 1.0,
+               "batch": 1.0,
 
-           b. 
+           b. bind_path
            
               "bind_path": "Bind path to mount data location inside Singularity", 
            
