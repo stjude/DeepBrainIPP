@@ -160,25 +160,25 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
           
           a. interpolation: interpolation such as linear, or KNN or Spline
           
-          "interpolation": "BSpline[3]", 
+              "interpolation": "BSpline[3]", 
           
           b. mask: mask associated you atlas or template 
           
-          "mask": "{cloned path}/DeepBrainIPP/Atlas/Atlases/ex-vivo_template.nrrd", 
+              "mask": "{cloned path}/DeepBrainIPP/Atlas/Atlases/ex-vivo_template.nrrd", 
           
           c. "operation_type": "quantifybrain",
           
           d. original_voxel: Voxel resolution to what MRIs were resampled (depends on choosen models type)
           
-          "original_voxel": "0.06,0.06,0.06", 
+              "original_voxel": "0.06,0.06,0.06", 
           
           e outputfile: location where registered volumed are stored
           
-          ."outputfile": "{cloned path}/DeepBrainIPP/Example_Dataset/segmentation_outcome/Registration_outcomes/wholebrain/",
+              "outputfile": "{cloned path}/DeepBrainIPP/Example_Dataset/segmentation_outcome/Registration_outcomes/wholebrain/",
           
           f. structure: File that contains labels of the structures annotated in the mask
           
-          "structure": "{cloned path}/DeepBrainIPP/Atlas/Atlases/ex-vivo_regionmap.txt"
+              "structure": "{cloned path}/DeepBrainIPP/Atlas/Atlases/ex-vivo_regionmap.txt"
 
         5.  Run singularity image 
             
