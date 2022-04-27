@@ -20,7 +20,7 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
 
 #### Skull Stripping (Figure 1. Step 1-2 in draft manuscript ) and Paraflocculus Segmentation (Figure 1. Branch II ) 
 -----
-        1.  Build singularity images using the recipe provided in "Singularity" folder
+        1.  Clone the project with LFS git and Build singularity images using the recipe provided in "Singularity" folder
             
             sudo singularity build skull_stripping.img skull_stripping_recipie.def
             
