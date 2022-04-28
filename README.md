@@ -193,9 +193,13 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
 ## User Guide for Model Training 
 -----
   1.Download the singularity images from this URL 
+  
   2. Copy it in "Singularity" folder
-  3. Download dataset from http://ftp.stjude.org/pub/CBI_Bioimage_Data/DeepBrainIPP_dataset.tgz and extract it
-  4. Shell into the image. run following command sequentially
+  
+  4. Download dataset from http://ftp.stjude.org/pub/CBI_Bioimage_Data/DeepBrainIPP_dataset.tgz and extract it
+ 
+  6. Shell into the image. run following command sequentially
+ 
         singularity shell -B {project cloned path},{data location} --nv singularity_for_training.simg
         cd {project clone path}
   5. Once you are inside the container run following. It will spin up a Juoyter notebook and will show url to access
