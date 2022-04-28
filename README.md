@@ -1,39 +1,27 @@
 # DeepBrainIPP: An end-to-end pipeline for automated mouse brain structures segmentation and morphology analysis.
 
 ## Background
-DeepBrainIpp is a pipeline for automated skull stripping, brain structures segmentation and morphogenetic characterization. People with/without technical expertise can use DeepBrainIPP. For Non-computational research staff a system administrator can setup four components (Web Application, Job Manager, Singularity Repository, Computing Node) of DeepBrainIPP to access it via web browser. However, DeepBrainIPP can be used from command prompt/terminal too.  
+DeepBrainIpp is a pipeline for automated skull stripping, brain structures segmentation and morphogenetic characterization. People with/without technical expertise can use DeepBrainIPP. For Non-computational research staff a system administrator can setup four components (Web Application, Job Manager, Singularity Repository, Computing Node) of DeepBrainIPP to access it via web browser. However, DeepBrainIPP can be used from command prompt/terminal too. **Clone the project with LFS git before using it**
 
 
 ![skull stripping](misc/3.jpg?raw=true "Skull Stripping")
 
-## Requirements
+## Hardware and software requirements for model inference and training
 1. Supported GPU: NVIDIA DGX 
 2. Nvidia Driver 450.80.02
 3. CUDA Version: 11.0
 4. Python 3.6+
 5. Tensorflow, keras
 6. Singularity: all the necessary requirements are listed in Singularity recipie file
+7. LFS git
 
-## User guidance
+## User guide for inference
 
-  
-  ### Accessing DeepBrainIPP from web interface:
- -----
-     System administrator: Setting up web application
-        1. Setup IPP from https://github.com/JaneliaSciComp/jacs-cm"
-        2. Setup singularity registry server from https://singularityhub.github.io/sregistry/docs/setup/#pancakes-installation
-        3. Build singularity images using the recipe provided in "Singularity" folder
-        4. Upload singularity images to installed singularity registry server
-        5. Configure pipeline from the admin section
-     Users: Accessing web interface and user manual
-        1. Use following guideline https://github.com/stjude/DeepBrainIPP/blob/main/misc/DeepBrainIPP_users_manual_github.pdf
+### Accessing DeepBrainIPP from command prompt (does not require setting up IPP)
 
-
-### Accessing DeepBrainIPP from command prompt without web interface 
-
-#### Skull Stripping and Paraflocculus Segmentation
+#### Skull Stripping (Figure 1. Step 1-2 in draft manuscript ) and Paraflocculus Segmentation (Figure 1. Branch II ) 
 -----
-        1.  Build singularity images using the recipe provided in "Singularity" folder
+        1.  Clone the project with LFS git and Build singularity images using the recipe provided in "Singularity" folder
             
             sudo singularity build skull_stripping.img skull_stripping_recipie.def
             
@@ -98,12 +86,15 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
         6. Once the process is finished the skull stripped brain will be stored in "final_segmentation" folder and measured volumes will be stored in ".csv" file
         7. Similarly segmented Paraflocculus will be stored in "PF_outer_final_segmentation"
 
-#### Brain Structure Segmentation
+#### Large Brain Region Registration based Segmentation (Figure 1. Step 2-5 in draft manuscript )
+
 -----
+
+
         1. Download fiji from https://imagej.net/software/fiji/downloads
         2. Extract it and put in "Singularity" folder
         2. Make Sure fiji runs headlessly
-        2.  Build singularity images using the recipe provided in "Singularity" folder. Feel free to contact if you can not build the image. We will upload to FTP
+        2.  Build singularity images using the recipe provided in "Singularity" folder. If you are unable to build the singularity image use following link to                   download it and put in "Singularity" folder. 
             
             sudo singularity build antsregistrationbatch.img antsregistrationbatch.def
             
@@ -145,7 +136,7 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
             
             singularity run -B [location of data and absolute path of base folder of DeepBrainIPP] antsregistrationbatch.img registration_config.json
        
-#### Sub-cerebellar Structure Segmentation
+#### Ex vivo Sub-cerebellar Structure Segmentation (Figure 1. Step 6-8 in draft manuscript ))
 -----
        
         1.  Enter necessary parameters in "registration_config.json" file and make "isCerebellum":"1" 
@@ -186,11 +177,45 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
 
 
 
-## Model Training 
-  1. Training dataset available at http://ftp.stjude.org/pub/CBI_Bioimage_Data/DeepBrainIPP_dataset.tgz
-  2. Skull Stripping Model
-  3. Paraflocculus Model
+  
+  ### Accessing DeepBrainIPP from web interface (requires setting up IPP):
+ -----
+     System administrator: Setting up web application
+        1. Setup IPP from https://github.com/JaneliaSciComp/jacs-cm"
+        2. Setup singularity registry server from https://singularityhub.github.io/sregistry/docs/setup/#pancakes-installation
+        3. Build singularity images using the recipe provided in "Singularity" folder
+        4. Upload singularity images to installed singularity registry server
+        5. Configure pipeline from the admin section
+     Users: Accessing web interface and user manual
+        1. Use following guideline https://github.com/stjude/DeepBrainIPP/blob/main/misc/DeepBrainIPP_users_manual_github.pdf
 
+
+## User Guide for Model Training 
+-----
+  1. Download the singularity images from this URL 
+  
+  2. Copy it in "Singularity" folder
+  
+  4. Download dataset from http://ftp.stjude.org/pub/CBI_Bioimage_Data/DeepBrainIPP_dataset.tgz and extract it
+ 
+  6. Shell into the singularity image. run following command sequentially
+ 
+        singularity shell -B {project cloned path},{data location} --nv singularity_for_training.simg
+        
+        cd {project clone path}
+  5. Once you are inside the container run following. It will spin up a Jupyter notebook and will show url to access
+ 
+        export JUPYTER_ALLOW_INSECURE_WRITES=true
+        
+        export JUPYTER_RUNTIME_DIR={directory where you have write access}
+        
+        jupyter notebook --no-browser
+        
+  6. open a browser and paste URL with token.     
+  7. Navigate to the folder "/Scripts/mousebrainsegmentation/"
+  8. open the notebook "data_organization_and_training.ipynb"
+  9. Follow step by step process to train the model
+ 
 ## Citation
 
 #### Acknowledgement
