@@ -14,6 +14,7 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
 5. Tensorflow, keras
 6. Singularity: all the necessary requirements are listed in Singularity recipie file
 7. LFS git
+8. follow this guide https://sylabs.io/guides/3.0/user-guide/installation.html to install singularity
 
 ## User guide for inference
 
@@ -25,15 +26,14 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
             
             sudo singularity build skull_stripping.img skull_stripping_recipie.def
             
-        2.  Make sure your input MRI volumes are in separate folders. MRIs can be 3D stacks or seriese of slice. see Example dataset for details.
-             
+        2.  Make sure your input MRI volumes are in separate folders. MRIs can be 3D stacks or seriese of slice. see Example dataset for details. We have also uploded few in vivo TEST MRI volumes   
         
             folder_name1/prefix_name1_*.nii.gz
             folder_name2/prefix_name2_*.nii.gz
             
         3.  Enter necessary parameters in "config.json" file located in "Singularity" folder. The config file has following parameter:
         
-            a. input_dir: Absolute path of your input MRI volumes. For example, to use our Example dataset you can set path like below..
+            a. input_dir: Absolute path of your input MRI volumes. For example, to use our Example dataset you can set path like below. 
               
               "input_dir": "{cloned path}/DeepBrainIPP/Example_Dataset/input_volumes/"
             
@@ -60,7 +60,7 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
               "is_diff_fold_struct": 0.0
              
             g. model_type: You need to select models based on the resolution of your MRI volumes that requires less interpolation to match with
-            models. For our Example dataset use "exvivo-2". 
+            models. For our Example dataset use "exvivo-1" and in vivo MRIs use "invivo-2". 
               
               invivo-2: 0.06mm X 0.06mm X 0.48mm
               exvivo-1: 0.06mm X 0.06mm X 0.06mm
@@ -94,8 +94,7 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
         1. Download fiji from https://imagej.net/software/fiji/downloads
         2. Extract it and put in "Singularity" folder
         2. Make Sure fiji runs headlessly
-        2.  Build singularity images using the recipe provided in "Singularity" folder. If you are unable to build the singularity image use following link to                   download it and put in "Singularity" folder. 
-            
+        2.  Build singularity images using the recipe provided in "Singularity" folder. If you are unable to build the singularity image use following link to download it and put in "Singularity" folder.                    
             sudo singularity build antsregistrationbatch.img antsregistrationbatch.def
             
         2.  Enter necessary parameters in "registration_config.json" file. Specially the following
@@ -128,7 +127,7 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
            
               "outputfile": "{cloned path}/DeepBrainIPP/Example_Dataset/segmentation_outcome/Registration_outcomes/", 
            
-           h. reg_param: This parameters are directly pass to ANTs. This is MRIs/dataset dependant. However, two sets of parameter is provided in user manual that                 we used for our ex vivo and in vivo image registration
+           h. reg_param: This parameters are directly passed to ANTs. This is MRIs/dataset dependant. However, two sets of parameter is provided in user manual that                 we used for our ex vivo and in vivo image registration
            
               "reg_param": "commands from user's manual https://github.com/stjude/DeepBrainIPP/blob/main/misc/DeepBrainIPP_users_manual_github.pdf"
         
@@ -155,7 +154,7 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
           
           b. mask: mask associated you atlas or template 
           
-              "mask": "{cloned path}/DeepBrainIPP/Atlas/Atlases/ex-vivo_template.nrrd", 
+              "mask": "{cloned path}/DeepBrainIPP/Atlas/Atlases/ex-vivo_mask.nrrd", 
           
           c. "operation_type": "quantifybrain",
           
@@ -203,7 +202,7 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
         singularity shell -B {project cloned path},{data location} --nv singularity_for_training.simg
         
         cd {project clone path}
-  5. Once you are inside the container run following. It will spin up a Jupyter notebook and will show url to access
+  5. Once you are inside the singularity image run following. It will spin up a Jupyter notebook and will show url to access
  
         export JUPYTER_ALLOW_INSECURE_WRITES=true
         
