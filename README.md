@@ -201,11 +201,14 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
   6. Shell into the image. run following command sequentially
  
         singularity shell -B {project cloned path},{data location} --nv singularity_for_training.simg
+        
         cd {project clone path}
   5. Once you are inside the container run following. It will spin up a Juoyter notebook and will show url to access
  
         export JUPYTER_ALLOW_INSECURE_WRITES=true
+        
         export JUPYTER_RUNTIME_DIR={directory where you have write access}
+        
         jupyter notebook --no-browser
         
   6. open a browser and paste URL with token.     
