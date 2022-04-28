@@ -135,7 +135,7 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
             
             singularity run -B [location of data and absolute path of base folder of DeepBrainIPP] antsregistrationbatch.img registration_config.json
             
-        5. Registration process will generate summarized result and put in ".pdf" file for each volume. see a sample ![Sample Registration Outcome (misc/DeepBrainIPP_users_manual_github.pdf?raw=true "Sample Registration Outcome")"
+        5. Registration process will generate summarized result and put in ".pdf" file for each volume. see a sample https://github.com/stjude/DeepBrainIPP/blob/main/misc/Euler3DTransform_AffineTransform_SyN__1622230132.pdf
        
 #### Ex vivo Sub-cerebellar Structure Segmentation (Figure 1. Step 6-8 in draft manuscript ))
 -----
