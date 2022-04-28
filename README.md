@@ -127,7 +127,7 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
            
               "outputfile": "{cloned path}/DeepBrainIPP/Example_Dataset/segmentation_outcome/Registration_outcomes/", 
            
-           h. reg_param: This parameters are directly pass to ANTs. This is MRIs/dataset dependant. However, two sets of parameter is provided in user manual that                 we used for our ex vivo and in vivo image registration
+           h. reg_param: This parameters are directly passed to ANTs. This is MRIs/dataset dependant. However, two sets of parameter is provided in user manual that                 we used for our ex vivo and in vivo image registration
            
               "reg_param": "commands from user's manual https://github.com/stjude/DeepBrainIPP/blob/main/misc/DeepBrainIPP_users_manual_github.pdf"
         
@@ -154,7 +154,7 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
           
           b. mask: mask associated you atlas or template 
           
-              "mask": "{cloned path}/DeepBrainIPP/Atlas/Atlases/ex-vivo_template.nrrd", 
+              "mask": "{cloned path}/DeepBrainIPP/Atlas/Atlases/ex-vivo_mask.nrrd", 
           
           c. "operation_type": "quantifybrain",
           
