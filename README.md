@@ -192,7 +192,7 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
 
 ## User Guide for Model Training 
 -----
-  1.Download the singularity images from this URL 
+  1. Download the singularity images from this URL 
   
   2. Copy it in "Singularity" folder
   
@@ -203,9 +203,11 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
         singularity shell -B {project cloned path},{data location} --nv singularity_for_training.simg
         cd {project clone path}
   5. Once you are inside the container run following. It will spin up a Juoyter notebook and will show url to access
+ 
         export JUPYTER_ALLOW_INSECURE_WRITES=true
         export JUPYTER_RUNTIME_DIR={directory where you have write access}
         jupyter notebook --no-browser
+        
   6. open a browser and paste URL with token.     
   7. Navigate to the folder "/Scripts/mousebrainsegmentation/"
   8. open the notebook "data_organization_train"
