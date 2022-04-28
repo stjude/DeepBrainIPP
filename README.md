@@ -129,7 +129,7 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
            
            h. reg_param: This parameters are directly passed to ANTs. This is MRIs/dataset dependant. However, two sets of parameter is provided in user manual that                 we used for our ex vivo and in vivo image registration
            
-              "reg_param": "see commands from user's manual "
+              "reg_param": " a sample is given in registration_config.json file or see user manual "
         
         4.  Run singularity image 
             
