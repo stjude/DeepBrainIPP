@@ -60,7 +60,7 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
               "is_diff_fold_struct": 0.0
              
             g. model_type: You need to select models based on the resolution of your MRI volumes that requires less interpolation to match with
-            models. For our Example dataset use "exvivo-2". 
+            models. For our Example dataset use "exvivo-2" and in vivo MRIs use "invivo-2". 
               
               invivo-2: 0.06mm X 0.06mm X 0.48mm
               exvivo-1: 0.06mm X 0.06mm X 0.06mm
