@@ -15,6 +15,8 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
 6. Singularity: all the necessary requirements are listed in Singularity recipie file
 7. LFS git
 8. follow this guide https://sylabs.io/guides/3.0/user-guide/installation.html to install singularity
+9. Dataset is available at http://ftp.stjude.org/pub/CBI_Bioimage_Data/DeepBrainIPP_dataset.tgz
+10. Two singularity images are available at http://ftp.stjude.org/pub/CBI_Bioimage_Data/DeepBrainIPP_dataset.tgz
 
 ## User guide for inference
 
@@ -194,13 +196,13 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
 ## User Guide for Model Training.
 ### Please send us an email to get pass key for accessing our dataset.
 -----
-  1. Download the singularity images from this URL 
+  1. Download the singularity images from this URL. (You will find two images)
   
-  2. Copy it in "Singularity" folder
+  2. Copy them in "Singularity" folder
   
-  4. Download dataset from http://ftp.stjude.org/pub/CBI_Bioimage_Data/DeepBrainIPP_dataset.tgz and extract it
+  3. Download dataset from http://ftp.stjude.org/pub/CBI_Bioimage_Data/DeepBrainIPP_dataset.tgz and extract it. (You will find 172 MRI volumes)
  
-  6. Shell into the singularity image. run following command sequentially
+  4. Shell into the singularity image. run following command sequentially
  
         singularity shell -B {project cloned path},{data location} --nv singularity_for_training.simg
         
