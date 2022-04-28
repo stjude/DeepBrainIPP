@@ -129,13 +129,13 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
            
            h. reg_param: This parameters are directly passed to ANTs. This is MRIs/dataset dependant. However, two sets of parameter is provided in user manual that                 we used for our ex vivo and in vivo image registration
            
-              "reg_param": "commands from user's manual ![Sample Registration Outcome](misc/DeepBrainIPP_users_manual_github.pdf?raw=true "Sample Registration Outcome")"
+              "reg_param": "see commands from user's manual "
         
         4.  Run singularity image 
             
             singularity run -B [location of data and absolute path of base folder of DeepBrainIPP] antsregistrationbatch.img registration_config.json
             
-        5. Registration process will generate summarized result and put in ".pdf" file for each volume. see a sample https://github.com/stjude/DeepBrainIPP/blob/main/misc/Euler3DTransform_AffineTransform_SyN__1622230132.pdf
+        5. Registration process will generate summarized result and put in ".pdf" file for each volume. see a sample ![Sample Registration Outcome (misc/DeepBrainIPP_users_manual_github.pdf?raw=true "Sample Registration Outcome")"
        
 #### Ex vivo Sub-cerebellar Structure Segmentation (Figure 1. Step 6-8 in draft manuscript ))
 -----
