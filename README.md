@@ -26,7 +26,7 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
             
             sudo singularity build skull_stripping.img skull_stripping_recipie.def
             
-        2.  Make sure your input MRI volumes are in separate folders. MRIs can be 3D stacks or seriese of slice. see Example dataset for details.
+        2.  Make sure your input MRI volumes are in separate folders. MRIs can be 3D stacks or seriese of slice. see Example dataset for details. We have also                   uploded few in vivo TEST MRI volumes 
              
         
             folder_name1/prefix_name1_*.nii.gz
@@ -34,8 +34,7 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
             
         3.  Enter necessary parameters in "config.json" file located in "Singularity" folder. The config file has following parameter:
         
-            a. input_dir: Absolute path of your input MRI volumes. For example, to use our Example dataset you can set path like below. We have also uploded
-               few in vivo TEST MRI volumes 
+            a. input_dir: Absolute path of your input MRI volumes. For example, to use our Example dataset you can set path like below. 
               
               "input_dir": "{cloned path}/DeepBrainIPP/Example_Dataset/input_volumes/"
             
