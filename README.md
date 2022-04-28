@@ -28,9 +28,6 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
             
         2.  Make sure your input MRI volumes are in separate folders. MRIs can be 3D stacks or seriese of slice. see Example dataset for details. We have also uploded few in vivo TEST MRI volumes   
         
-             
-             
-        
             folder_name1/prefix_name1_*.nii.gz
             folder_name2/prefix_name2_*.nii.gz
             
