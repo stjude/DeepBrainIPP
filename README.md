@@ -94,8 +94,7 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
         1. Download fiji from https://imagej.net/software/fiji/downloads
         2. Extract it and put in "Singularity" folder
         2. Make Sure fiji runs headlessly
-        2.  Build singularity images using the recipe provided in "Singularity" folder. If you are unable to build the singularity image use following link to                   download it and put in "Singularity" folder. 
-            
+        2.  Build singularity images using the recipe provided in "Singularity" folder. If you are unable to build the singularity image use following link to download it and put in "Singularity" folder.                    
             sudo singularity build antsregistrationbatch.img antsregistrationbatch.def
             
         2.  Enter necessary parameters in "registration_config.json" file. Specially the following
