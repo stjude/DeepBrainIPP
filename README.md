@@ -213,7 +213,7 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
         
   6. open a browser and paste URL with token.     
   7. Navigate to the folder "/Scripts/mousebrainsegmentation/"
-  8. open the notebook "data_organization_train"
+  8. open the notebook "data_organization_and_training.ipynb"
   9. Follow step by step process to train the model
  
 ## Citation
