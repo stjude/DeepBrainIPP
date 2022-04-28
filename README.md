@@ -191,7 +191,8 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
         1. Use following guideline https://github.com/stjude/DeepBrainIPP/blob/main/misc/DeepBrainIPP_users_manual_github.pdf
 
 
-## User Guide for Model Training 
+## User Guide for Model Training.
+### Please send us an email to get pass key for accessing our dataset.
 -----
   1. Download the singularity images from this URL 
   
