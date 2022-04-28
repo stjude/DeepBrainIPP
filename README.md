@@ -14,6 +14,7 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
 5. Tensorflow, keras
 6. Singularity: all the necessary requirements are listed in Singularity recipie file
 7. LFS git
+8. follow this guide https://sylabs.io/guides/3.0/user-guide/installation.html to install singularity
 
 ## User guide for inference
 
@@ -33,7 +34,8 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
             
         3.  Enter necessary parameters in "config.json" file located in "Singularity" folder. The config file has following parameter:
         
-            a. input_dir: Absolute path of your input MRI volumes. For example, to use our Example dataset you can set path like below..
+            a. input_dir: Absolute path of your input MRI volumes. For example, to use our Example dataset you can set path like below. We have also uploded
+               few in vivo TEST MRI volumes 
               
               "input_dir": "{cloned path}/DeepBrainIPP/Example_Dataset/input_volumes/"
             
