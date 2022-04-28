@@ -196,7 +196,7 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
 ## User Guide for Model Training.
 ### Please send us an email to get pass key for accessing our dataset.
 -----
-  1. Download the singularity images from this URL. (You will find two images)
+  1. Download the singularity images from this URL http://ftp.stjude.org/pub/CBI_Bioimage_Data/materials.tar.gz.gpg (You will find two images)
   
   2. Copy them in "Singularity" folder
   
