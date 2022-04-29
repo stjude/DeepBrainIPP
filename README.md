@@ -154,7 +154,7 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
           
               "interpolation": "BSpline[3]", 
           
-          b. mask: mask associated you atlas or template 
+          b. mask: mask associated your atlas or template 
           
               "mask": "{cloned path}/DeepBrainIPP/Atlas/Atlases/ex-vivo_mask.nrrd", 
           
