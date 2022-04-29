@@ -91,13 +91,11 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
 #### Large Brain Region Registration based Segmentation (Figure 1. Step 2-5 in draft manuscript )
 
 -----
-
-
         1. Download fiji from https://imagej.net/software/fiji/downloads
         2. Extract it and put in "Singularity" folder
         2. Make Sure fiji runs headlessly
-        2.  Build singularity images using the recipe provided in "Singularity" folder. If you are unable to build the singularity image use following link to download it and put in "Singularity" folder.                    
-            sudo singularity build antsregistrationbatch.img antsregistrationbatch.def
+        2.  Build singularity images using the recipe provided in "Singularity" folder. If you are unable to build the singularity image use following link to download it and put "imageprocessing-antswithmasklandmarks-1.0.simg" in "Singularity" folder and skip step bellow.                     
+            sudo singularity build imageprocessing-antswithmasklandmarks-1.0.simg antsregistrationbatch.def
             
         2.  Enter necessary parameters in "registration_config.json" file. Specially the following
         
@@ -135,7 +133,7 @@ DeepBrainIpp is a pipeline for automated skull stripping, brain structures segme
         
         4.  Run singularity image 
             
-            singularity run -B [location of data and absolute path of base folder of DeepBrainIPP] antsregistrationbatch.img registration_config.json
+            singularity run -B [location of data and absolute path of base folder of DeepBrainIPP] imageprocessing-antswithmasklandmarks-1.0.simg registration_config.json
             
         5. Registration process will generate summarized result and put in ".pdf" file for each volume. see a sample https://github.com/stjude/DeepBrainIPP/blob/main/misc/Euler3DTransform_AffineTransform_SyN__1622230132.pdf
        
