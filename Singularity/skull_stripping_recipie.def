@@ -8,7 +8,7 @@ This container is made by Shahinur Alam (sajonbuet@gmail.com)
 
 
 %files
-    $PWD/Scripts/mousebrainsegmentation /home/mousebrainsegmentation/
+    $RECIPE_DIR/../Scripts/mousebrainsegmentation /home/mousebrainsegmentation/
     
 %labels
     Maintainer Shahinur
