@@ -13,7 +13,7 @@ author: Shahinur Alam(sajonbuet@gmail.com)
 	antsgeneratereport.py /home/
     CreateLabelImage.py /home/
     Createmasks.py /home/
-    fiji-linux64 /home/
+    /share/pkg.7/fiji/2022-09-23/install /home
 
 %labels
     Maintainer Shahinur
