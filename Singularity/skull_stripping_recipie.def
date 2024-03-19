@@ -8,8 +8,8 @@ This container is made by Shahinur Alam (sajonbuet@gmail.com)
 
 
 %files
-
-    /home/salam/Study/IPP/ants/SingularityBuild/cnndgx/mousebrainsegmentation/ /home/mousebrainsegmentation/
+    $PWD/Scripts/mousebrainsegmentation /home/mousebrainsegmentation/
+    
 %labels
     Maintainer Shahinur
     Version 1.0
