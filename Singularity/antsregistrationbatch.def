@@ -50,10 +50,9 @@ author: Shahinur Alam(sajonbuet@gmail.com)
 	which cmake
 	git config --global url."https://".insteadOf git://
 	export SuperBuild_ANTS_USE_GIT_PROTOCOL="OFF"
-    mkdir /code 
+    mkdir -p /code/bin/ants/bin 
 	cd /code
 	git clone https://github.com/ANTsX/ANTs.git
-	mkdir -p /code/bin/ants
 	cd /code/bin/ants
 	cmake /code/ANTs
 	make -j8
