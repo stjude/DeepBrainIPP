@@ -44,7 +44,7 @@ author: Shahinur Alam(sajonbuet@gmail.com)
 	pip3 install pandas scikit-learn scikit-image webcolors plotly matplotlib statsmodels factorial
 	# pip install git+https://github.com/ANTsX/ANTsPy.git
 	pip install antspyx
-	python3.10 -m pip install scipy==1.2 --upgrade
+	# python3.10 -m pip install scipy==1.2 --upgrade
 	apt-get install -y python3-opencv
 	
 	which cmake
