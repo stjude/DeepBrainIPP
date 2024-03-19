@@ -10,9 +10,9 @@ author: Shahinur Alam(sajonbuet@gmail.com)
 %files 
     #copy files inside container
     #utility program to generate reports from registration outcomes and logs
-	antsgeneratereport.py /home/
-    CreateLabelImage.py /home/
-    Createmasks.py /home/
+	/scratch/mhorn/deepbrain/DeepBrainIPP/Singularity/antsgeneratereport.py /home/
+    /scratch/mhorn/deepbrain/DeepBrainIPP/Singularity/CreateLabelImage.py /home/
+    /scratch/mhorn/deepbrain/DeepBrainIPP/Singularity/Createmasks.py /home/
     /share/pkg.7/fiji/2022-09-23/install /home
 	/usr/share/zoneinfo/Etc/UTC /etc/localtime
 
@@ -44,7 +44,7 @@ author: Shahinur Alam(sajonbuet@gmail.com)
 	pip3 install pandas scikit-learn scikit-image webcolors plotly matplotlib statsmodels factorial
 	# pip install git+https://github.com/ANTsX/ANTsPy.git
 	pip install antspyx
-	python3.6 -m pip install scipy==1.2 --upgrade
+	python3.10 -m pip install scipy==1.2 --upgrade
 	apt-get install -y python3-opencv
 	
 	which cmake
