@@ -49,17 +49,18 @@ author: Shahinur Alam(sajonbuet@gmail.com)
 	
 	which cmake
 	git config --global url."https://".insteadOf git://
-	export SuperBuild_ANTS_USE_GIT_PROTOCOL="OFF"
-    mkdir -p /code/bin/ants/bin 
+	# export SuperBuild_ANTS_USE_GIT_PROTOCOL="OFF"
+    mkdir -p /code/bin/ants 
 	cd /code
 	git clone https://github.com/ANTsX/ANTs.git
-	cmake /code/ANTs -DCMAKE_INSTALL_PREFIX=/code/bin/ants
 	cd /code/bin/ants
+	cmake /code/ANTs -DCMAKE_INSTALL_PREFIX=/code/bin/ants
 	make -j8
 	make install -j8
 	# cp /code/ANTs/Scripts/*.* /code/bin/ants/bin/
 	export ANTSPATH=/code/bin/ants/bin
 	export PATH=${ANTSPATH}:$PATH
+	export LD_LIBRARY_PATH=/code/bin/ants/lib:$LD_LIBRARY_PATH
 	
 
 %runscript
