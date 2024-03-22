@@ -10,10 +10,11 @@ author: Shahinur Alam(sajonbuet@gmail.com)
 %files 
     #copy files inside container
     #utility program to generate reports from registration outcomes and logs
-	antsgeneratereport.py /home/
-    CreateLabelImage.py /home/
-    Createmasks.py /home/
-    fiji-linux64 /home/
+	/scratch/mhorn/deepbrain/DeepBrainIPP/Singularity/antsgeneratereport.py /home/
+    /scratch/mhorn/deepbrain/DeepBrainIPP/Singularity/CreateLabelImage.py /home/
+    /scratch/mhorn/deepbrain/DeepBrainIPP/Singularity/Createmasks.py /home/
+    /share/pkg.7/fiji/2022-09-23/install /home
+	/usr/share/zoneinfo/Etc/UTC /etc/localtime
 
 %labels
     Maintainer Shahinur
@@ -38,26 +39,28 @@ author: Shahinur Alam(sajonbuet@gmail.com)
 	pip3 install tifffile
 	pip install fill-voids
 	pip3 install scipy
-	git config --global url."https://".insteadOf git://
-    export SuperBuild_ANTS_USE_GIT_PROTOCOL="OFF"
-	pip3 install pandas sklearn scikit-image webcolors plotly matplotlib statsmodels factorial
-	pip install git+https://github.com/ANTsX/ANTsPy.git
-	python3.6 -m pip install scipy==1.2 --upgrade
+	# git config --global url."https://".insteadOf git://
+    # export SuperBuild_ANTS_USE_GIT_PROTOCOL="OFF"
+	pip3 install pandas scikit-learn scikit-image webcolors plotly matplotlib statsmodels factorial
+	# pip install git+https://github.com/ANTsX/ANTsPy.git
+	pip install antspyx
+	# python3.10 -m pip install scipy==1.2 --upgrade
 	apt-get install -y python3-opencv
 	
 	which cmake
 	git config --global url."https://".insteadOf git://
-	export SuperBuild_ANTS_USE_GIT_PROTOCOL="OFF"
-    mkdir /code 
+	# export SuperBuild_ANTS_USE_GIT_PROTOCOL="OFF"
+    mkdir -p /code/bin/ants 
 	cd /code
 	git clone https://github.com/ANTsX/ANTs.git
-	mkdir -p /code/bin/ants
 	cd /code/bin/ants
-	cmake /code/ANTs
+	cmake /code/ANTs -DCMAKE_INSTALL_PREFIX=/code/bin/ants
 	make -j8
-	cp /code/ANTs/Scripts/*.* /code/bin/ants/bin/
+	make install -j8
+	# cp /code/ANTs/Scripts/*.* /code/bin/ants/bin/
 	export ANTSPATH=/code/bin/ants/bin
 	export PATH=${ANTSPATH}:$PATH
+	export LD_LIBRARY_PATH=/code/bin/ants/lib:$LD_LIBRARY_PATH
 	
 
 %runscript
